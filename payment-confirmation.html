@@ -86,26 +86,40 @@
         }
 
         .success-animation {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             margin: 0 auto 2rem;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(234, 88, 12, 0.3) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            animation: pulse 2s ease-in-out infinite;
+            font-size: 4.5rem;
+            animation: pulse 2s ease-in-out infinite, rotate 3s linear infinite;
+            position: relative;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
         }
 
         @keyframes pulse {
             0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.7);
+                transform: scale(1) rotate(0deg);
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
             }
             50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 0 20px rgba(234, 88, 12, 0);
+                transform: scale(1.08) rotate(180deg);
+                box-shadow: 0 0 0 25px rgba(245, 158, 11, 0);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(180deg);
+            }
+            100% {
+                transform: rotate(360deg);
             }
         }
 
@@ -341,10 +355,13 @@
                 <p class="greeting">Bonjour <strong id="clientName">Client</strong>,</p>
 
                 <div class="status-box">
-                    <h3>En attente de confirmation</h3>
+                    <h3>⏳ EN ATTENTE DE VÉRIFICATION</h3>
                     <p>
                         Nous vérifions actuellement votre paiement. Ce processus prend généralement 
                         <strong>quelques minutes à 24 heures</strong> selon votre méthode de paiement.
+                    </p>
+                    <p style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(245, 158, 11, 0.3);">
+                        📧 <strong>Vous recevrez un email de confirmation</strong> dès que nous aurons validé votre paiement.
                     </p>
                 </div>
 
@@ -399,7 +416,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         function loadConfirmationData() {
             const orderData = JSON.parse(localStorage.getItem('paymentConfirmed') || '{}');
             
@@ -434,13 +451,4 @@
                     methodName = 'Orange Money';
                     break;
                 case 'bank':
-                    methodName = 'Virement Bancaire';
-                    break;
-            }
-            document.getElementById('method').textContent = methodName;
-        }
-
-        window.addEventListener('DOMContentLoaded', loadConfirmationData);
-    </script>
-</body>
-</html>
+                    methodName = 'Vire
