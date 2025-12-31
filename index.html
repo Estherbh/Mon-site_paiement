@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eureka.Px - Reprenez le contrôle</title>
+    <meta name="description" content="Systèmes intelligents qui travaillent pour vous">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563EB;
+            --bright-blue: #3B82F6;
+            --dark-blue: #1E40AF;
+            --secondary-orange: #EA580C;
+            --bright-orange: #F97316;
+            --copper: #C2410C;
+            --dark-bg: #0A0E1A;
+            --darker-bg: #050A14;
+            --card-bg: rgba(37, 99, 235, 0.1);
+            --light-text: #FFFFFF;
+            --gray-text: #94A3B8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0E1A;
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Container with border */
+        .page-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            background: var(--dark-bg);
+            border-radius: 32px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navigation */
+        nav {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 10, 31, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--bright-orange);
+        }
+
+        .contact-btn {
+            background: var(--primary-blue);
+            color: var(--light-text);
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 3rem 6rem;
+            background: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Grid pattern background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-left {
+            padding-right: 2rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(37, 99, 235, 0.2);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            color: var(--bright-orange);
+        }
+
+        .hero-left h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--gray-text);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 12px;
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        .email-input::placeholder {
+            color: var(--gray-text);
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: var(--primary-blue);
+            color: var(--light-text);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.4);
+        }
+
+        /* Info Cards on the right */
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: rgba(37, 99, 235, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateX(-5px);
+            border-color: var(--secondary-orange);
+            box-shadow: 0 10px 30px rgba(234, 88, 12, 0.3);
+        }
+
+        .info-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: var(--light-text);
+            font-style: italic;
+        }
+
+        .info-card p {
+            color: var(--gray-text);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 3rem;
+            background: var(--dark-bg);
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .stats-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--secondary-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray-text);
+            font-size: 1rem;
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 6rem 3rem;
+            background: var(--dark-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .process-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-card {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .process-card:hover {
+            background: rgba(37, 99, 235, 0.15);
+            border-color: var(--bright-orange);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .process-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .process-card p {
+            color: var(--gray-text);
+            line-height: 1.7;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 6rem 3rem;
+            background: var(--darker-bg);
+        }
+
+        .services-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            background: rgba(37, 99, 235, 0.15);
+            border-color: var(--bright-orange);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .service-card > p {
+            color: var(--gray-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .service-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .service-features li {
+            color: var(--gray-text);
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .service-features li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 6rem 3rem;
+            background: var(--dark-bg);
+        }
+
+        .pricing-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary-blue);
+            background: rgba(37, 99, 235, 0.15);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Recommandé';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
+        }
+
+        .price-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .price-tag {
+            font-size: 0.9rem;
+            color: var(--gray-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--light-text);
+        }
+
+        .price-period {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+        }
+
+        .price-description {
+            color: var(--gray-text);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .price-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .price-features li {
+            padding: 0.8rem 0;
+            color: var(--gray-text);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .price-features li::before {
+            content: '✓';
+            color: var(--primary-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .price-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .price-btn:hover {
+            background: var(--bright-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* ROI Section */
+        .roi-section {
+            padding: 6rem 3rem;
+            background: var(--darker-bg);
+        }
+
+        .roi-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .roi-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .roi-header h3 {
+            font-size: 2.5rem;
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .roi-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .roi-label {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .roi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary-orange);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 3rem 2rem;
+            background: var(--darker-bg);
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--gray-text);
+            text-decoration: none;
+            line-height: 2;
+        }
+
+        .footer-section a:hover {
+            color: var(--bright-orange);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(37, 99, 235, 0.2);
+            color: var(--gray-text);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-left h1 {
+                font-size: 3.5rem;
+            }
+
+            .stats-container,
+            .roi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+            }
+
+            nav {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-left h1 {
+                font-size: 2.5rem;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .process-section,
+            .services-section,
+            .pricing-section,
+            .roi-section {
+                padding: 4rem 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Navigation -->
+        <nav>
+            <div class="logo">
+                <img src="favicon.svg" alt="Eureka.Px Logo" class="logo-icon">
+                <span>Eureka.Px</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#solutions">Features</a></li>
+                <li><a href="#tarifs">Pricing</a></li>
+                <li><a href="#process">News</a></li>
+                <li><a href="#footer">About</a></li>
+            </ul>
+            <a href="mailto:contact@eurekapx.com" class="contact-btn" style="text-decoration: none; display: inline-block;">Contact</a>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-left">
+                    <div class="badge">
+                        Systèmes intelligents sur-mesure
+                    </div>
+                    
+                    <h1>Reprenez le contrôle sans devoir tout porter seul</h1>
+                    
+                    <p class="hero-description">
+                        Des solutions d'automatisation intelligentes qui transforment l'effort en impact. 
+                        Nous créons des systèmes qui s'adaptent à vous, respectent vos données et évoluent avec vos objectifs.
+                    </p>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <p style="color: var(--gray-text); font-size: 0.95rem; line-height: 1.6;">
+                            <strong style="color: var(--light-text);">Inscrivez-vous à la newsletter</strong> pour recevoir les news, 
+                            les nouveautés et rester informé. Désabonnement en 1 clic à tout moment.
+                        </p>
+                    </div>
+
+                    <form class="email-form" onsubmit="return false;">
+                        <input type="email" class="email-input" placeholder="Entrer email" required>
+                        <button type="submit" class="submit-btn">Commencer</button>
+                    </form>
+                </div>
+
+                <div class="hero-right">
+                    <div class="info-card">
+                        <h3>Laissez à la machine ce qu'elle sait faire de mieux</h3>
+                        <p>Analyser, structurer, révéler les insights. Les systèmes sont conçus pour transformer l'effort en impact mesurable.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Conservez ce qui fait votre valeur</h3>
+                        <p>Décider, valider, coordonner, donner du sens. Le travail ne devrait pas vous épuiser pour produire des résultats.</p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Des outils qui s'adaptent à vous</h3>
+                        <p>Solutions évolutives et scalables qui respectent vos données et s'intègrent parfaitement à votre manière de travailler. Toutes les données vous appartiennent et restent sous votre contrôle. Aucun stockage de données sensibles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">600$</div>
+                    <div class="stat-label">Investissement développement</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">Réduction du temps de travail</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">35$</div>
+                    <div class="stat-label">Maintenance mensuelle</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section" id="process">
+            <div class="section-header">
+                <h2>Comment ça marche</h2>
+                <p>Un processus transparent, de l'analyse à la livraison</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="step-number">01</div>
+                    <h3>Analyse & Diagnostic</h3>
+                    <p>Comprendre vos processus actuels et identifier les opportunités d'automatisation pour concevoir la solution la plus adaptée.</p>
+                </div>
+                <div class="process-card">
+                    <div class="step-number">02</div>
+                    <h3>Conception Sur-Mesure</h3>
+                    <p>Architecture personnalisée qui s'intègre à votre écosystème. Solutions modulaires pensées pour s'adapter à vos besoins futurs.</p>
+                </div>
+                <div class="process-card">
+                    <div class="step-number">03</div>
+                    <h3>Développement Agile</h3>
+                    <p>Cycles courts avec validation régulière. Livraison en 4 semaines à partir de la signature du contrat.</p>
+                </div>
+                <div class="process-card">
+                    <div class="step-number">04</div>
+                    <h3>Formation & Support</h3>
+                    <p>Formation complète et accompagnement continu pour optimiser l'utilisation au fil du temps.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services-section" id="solutions">
+            <div class="section-header">
+                <h2>Types de solutions</h2>
+                <p>Des systèmes intelligents adaptés à vos défis spécifiques</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Reporting Automatisé</h3>
+                    <p>Transformez vos données en rapports clairs avec génération automatique et visualisations intelligentes.</p>
+                    <ul class="service-features">
+                        <li>Génération en 1 clic</li>
+                        <li>Dashboards interactifs</li>
+                        <li>Analyse prédictive</li>
+                        <li>Distribution automatique</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <h3>Assistants Intelligents</h3>
+                    <p>Chatbots qui comprennent votre contexte. Interrogez vos données en langage naturel.</p>
+                    <ul class="service-features">
+                        <li>Langage naturel</li>
+                        <li>Contexte métier</li>
+                        <li>Sources vérifiables</li>
+                        <li>Apprentissage continu</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <h3>Automatisation Workflows</h3>
+                    <p>Libérez-vous des tâches répétitives avec synchronisation multi-plateformes.</p>
+                    <ul class="service-features">
+                        <li>Intégrations multiples</li>
+                        <li>Notifications intelligentes</li>
+                        <li>Synchronisation temps réel</li>
+                        <li>Sans code</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <h3>Modèles Prédictifs</h3>
+                    <p>Anticipez les événements avec des modèles entraînés sur vos données historiques.</p>
+                    <ul class="service-features">
+                        <li>Prédictions 48-72h</li>
+                        <li>Détection anomalies</li>
+                        <li>Recommandations</li>
+                        <li>Amélioration continue</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="tarifs">
+            <div class="section-header">
+                <h2>Investissement transparent</h2>
+                <p>Développement unique + hébergement mensuel ou annuel</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="price-header">
+                        <div class="price-tag">Une fois</div>
+                        <div>
+                            <span class="price-amount">600</span>
+                            <span class="price-period">USD</span>
+                        </div>
+                        <div class="price-description">Paiement en 3 fois</div>
+                    </div>
+                    <h3 style="margin-bottom: 1.5rem;">Développement</h3>
+                    <ul class="price-features">
+                        <li>Application complète</li>
+                        <li>Intégrations Google Workspace et multi-outils</li>
+                        <li>Dashboard analytique</li>
+                        <li>IA prédictive</li>
+                        <li>Rapports automatiques</li>
+                        <li>Multi-utilisateurs</li>
+                        <li>Formation</li>
+                    </ul>
+                    <div style="margin-top: 2rem; padding: 1rem; background: rgba(37, 99, 235, 0.1); border-radius: 12px; text-align: center; color: var(--gray-text); font-size: 0.9rem;">
+                        Livraison en 4 semaines
+                    </div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="price-header">
+                        <div class="price-tag">Mensuel</div>
+                        <div>
+                            <span class="price-amount">35</span>
+                            <span class="price-period">USD/mois</span>
+                        </div>
+                        <div class="price-description">Premier mois gratuit</div>
+                    </div>
+                    <h3 style="margin-bottom: 1.5rem;">Hébergement</h3>
+                    <ul class="price-features">
+                        <li>Cloud haute disponibilité</li>
+                        <li>Domaine + SSL</li>
+                        <li>Sauvegardes (30j)</li>
+                        <li>Sync 5 min</li>
+                        <li>Monitoring 24/7</li>
+                        <li>Support 5j/7</li>
+                        <li>Mises à jour auto</li>
+                        <li>Corrections illimitées</li>
+                    </ul>
+                    <div style="margin-top: 2rem; padding: 1rem; background: rgba(37, 99, 235, 0.1); border-radius: 12px; text-align: center;">
+                        <div style="font-size: 0.9rem; color: var(--gray-text); margin-bottom: 0.5rem;">Total année 1</div>
+                        <div style="font-size: 2rem; font-weight: 800; color: var(--light-text);">985 USD</div>
+                    </div>
+                    <button class="price-btn" style="margin-top: 1.5rem;" onclick="window.location.href='payment.html'">Démarrer</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="price-header">
+                        <div class="price-tag">Annuel (-20%)</div>
+                        <div>
+                            <span class="price-amount">28</span>
+                            <span class="price-period">USD/mois</span>
+                        </div>
+                        <div class="price-description">336 USD/an</div>
+                    </div>
+                    <h3 style="margin-bottom: 1.5rem;">Hébergement</h3>
+                    <ul class="price-features">
+                        <li>Tout plan mensuel</li>
+                        <li>Économie 84 USD/an</li>
+                        <li>1 owner + 2 admins</li>
+                        <li>Users illimités</li>
+                        <li>Support prioritaire</li>
+                        <li>Formation IA continue</li>
+                        <li>Garantie 30j</li>
+                        <li>Tarif garanti 12 mois</li>
+                    </ul>
+                    <div style="margin-top: 2rem; padding: 1rem; background: rgba(37, 99, 235, 0.2); border-radius: 12px; text-align: center;">
+                        <div style="font-size: 0.9rem; color: var(--gray-text); margin-bottom: 0.5rem;">Total année 1</div>
+                        <div style="font-size: 2rem; font-weight: 800; color: var(--light-text);">908 USD</div>
+                        <div style="font-size: 0.85rem; color: var(--bright-orange); margin-top: 0.5rem; font-weight: 600;">Économie 77 USD</div>
+                    </div>
+                    <button class="price-btn" style="margin-top: 1.5rem;" onclick="window.location.href='payment.html'">Démarrer</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROI Section -->
+        <section class="roi-section">
+            <div class="roi-container">
+                <div class="roi-header">
+                    <h3>Retour sur investissement</h3>
+                    <p style="color: var(--gray-text); font-size: 1.1rem;">Économie de 10-12h par semaine minimum</p>
+                </div>
+                
+                <div class="roi-grid">
+                    <div class="roi-card">
+                        <div class="roi-label">Si votre temps vaut 10 USD/h</div>
+                        <div class="roi-value">5 200 USD</div>
+                        <div style="color: var(--gray-text); font-size: 0.85rem; margin-top: 0.5rem;">économisés/an</div>
+                    </div>
+                    
+                    <div class="roi-card">
+                        <div class="roi-label">Si votre temps vaut 15 USD/h</div>
+                        <div class="roi-value">7 800 USD</div>
+                        <div style="color: var(--gray-text); font-size: 0.85rem; margin-top: 0.5rem;">économisés/an</div>
+                    </div>
+                    
+                    <div class="roi-card">
+                        <div class="roi-label">Si votre temps vaut 20 USD/h</div>
+                        <div class="roi-value">10 400 USD</div>
+                        <div style="color: var(--gray-text); font-size: 0.85rem; margin-top: 0.5rem;">économisés/an</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: rgba(37, 99, 235, 0.1); border-radius: 16px;">
+                    <div style="font-size: 1.1rem; color: var(--light-text); font-weight: 600; margin-bottom: 0.5rem;">Garantie satisfait ou remboursé</div>
+                    <div style="color: var(--gray-text);">30 jours pour tester sans risque</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Eureka.Px</h4>
+                    <p>Systèmes intelligents sur-mesure qui s'adaptent à votre manière de travailler. Solutions évolutives pensées pour l'impact réel.</p>
+                    <p style="margin-top: 1rem;"><strong>Contact :</strong> <a href="mailto:contact@eurekapx.com" style="color: var(--secondary-orange); text-decoration: none;">contact@eurekapx.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#solutions">Reporting</a></li>
+                        <li><a href="#solutions">Assistants IA</a></li>
+                        <li><a href="#solutions">Automatisation</a></li>
+                        <li><a href="#solutions">Prédiction</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Entreprise</h4>
+                    <ul>
+                        <li><a href="#process">Processus</a></li>
+                        <li><a href="#tarifs">Tarifs</a></li>
+                        <li><a href="#">À propos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="#">CGV</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                        <li><a href="#">Mentions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Eureka.Px - Tous droits réservés</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

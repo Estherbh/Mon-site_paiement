@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement en cours de vérification - Eureka.Px</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563EB;
+            --bright-blue: #3B82F6;
+            --dark-blue: #1E40AF;
+            --secondary-orange: #EA580C;
+            --bright-orange: #F97316;
+            --copper: #C2410C;
+            --dark-bg: #0A0E1A;
+            --darker-bg: #050A14;
+            --card-bg: rgba(37, 99, 235, 0.1);
+            --light-text: #FFFFFF;
+            --gray-text: #94A3B8;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0E1A;
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: var(--dark-bg);
+            border-radius: 32px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(15, 10, 31, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .main-content {
+            padding: 4rem 3rem;
+            text-align: center;
+        }
+
+        .success-animation {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(234, 88, 12, 0);
+            }
+        }
+
+        .main-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .status-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 2px solid var(--warning-yellow);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-box h3 {
+            color: var(--warning-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .status-box p {
+            color: var(--gray-text);
+            line-height: 1.8;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .detail-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .detail-label {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            color: var(--light-text);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .reference-highlight {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+            border: 2px solid var(--secondary-orange);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .reference-highlight .label {
+            color: var(--gray-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-highlight .code {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary-orange);
+            letter-spacing: 0.05em;
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        .next-steps {
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .next-steps h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .step-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .step-list li {
+            padding: 1rem;
+            margin-bottom: 0.8rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 8px;
+            color: var(--gray-text);
+        }
+
+        .step-list li strong {
+            color: var(--light-text);
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .action-btn {
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(37, 99, 235, 0.1);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            color: var(--light-text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        .contact-info {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-info p {
+            color: var(--gray-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--secondary-orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+            }
+
+            .main-content {
+                padding: 3rem 1.5rem;
+            }
+
+            .main-content h1 {
+                font-size: 2rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .reference-highlight .code {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <nav>
+            <div class="logo">
+                <img src="favicon.svg" alt="Eureka.Px Logo" class="logo-icon">
+                <span>Eureka.Px</span>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <div class="success-animation">⏳</div>
+            
+            <h1>Paiement en cours de vérification</h1>
+            <p class="subtitle">Nous avons bien reçu votre notification</p>
+
+            <div class="info-card">
+                <p class="greeting">Bonjour <strong id="clientName">Client</strong>,</p>
+
+                <div class="status-box">
+                    <h3>En attente de confirmation</h3>
+                    <p>
+                        Nous vérifions actuellement votre paiement. Ce processus prend généralement 
+                        <strong>quelques minutes à 24 heures</strong> selon votre méthode de paiement.
+                    </p>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Montant</div>
+                        <div class="detail-value" id="amount">200 USD</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Méthode</div>
+                        <div class="detail-value" id="method">Airtel Money</div>
+                    </div>
+                </div>
+
+                <div class="reference-highlight">
+                    <div class="label">Votre référence de commande</div>
+                    <div class="code" id="referenceCode">EUREKA-PX-XXX</div>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Prochaines étapes</h3>
+                    <ul class="step-list">
+                        <li>
+                            <strong>Email de confirmation</strong> - Vous recevrez un email avec la facture dès que le paiement sera vérifié
+                        </li>
+                        <li>
+                            <strong>Début du développement</strong> - Votre projet entre en phase de développement immédiatement après confirmation
+                        </li>
+                        <li>
+                            <strong>Rappels automatiques</strong> - Vous recevrez des rappels 2 jours avant chaque échéance de paiement
+                        </li>
+                        <li>
+                            <strong>Livraison</strong> - Votre application sera livrée selon le calendrier convenu
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="contact-info">
+                    <p>Une question? Besoin d'aide?</p>
+                    <p>Contactez-nous: <a href="mailto:contact@eurekapx.com">contact@eurekapx.com</a></p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="index.html" class="action-btn btn-primary">
+                    Retour à l'accueil
+                </a>
+                <button class="action-btn btn-secondary" onclick="window.print()">
+                    Imprimer cette confirmation
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadConfirmationData() {
+            const orderData = JSON.parse(localStorage.getItem('paymentConfirmed') || '{}');
+            
+            if (!orderData.firstName) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const rate = 2350;
+            const { firstName, lastName, paymentMethod, currency, reference } = orderData;
+
+            // Nom du client
+            document.getElementById('clientName').textContent = `${firstName} ${lastName}`;
+
+            // Référence
+            document.getElementById('referenceCode').textContent = reference;
+
+            // Montant
+            const firstAmount = 200;
+            const displayAmount = currency === 'usd' 
+                ? `${firstAmount} USD` 
+                : `${(firstAmount * rate).toLocaleString()} FC`;
+            document.getElementById('amount').textContent = displayAmount;
+
+            // Méthode
+            let methodName = '';
+            switch(paymentMethod) {
+                case 'airtel':
+                    methodName = 'Airtel Money';
+                    break;
+                case 'orange':
+                    methodName = 'Orange Money';
+                    break;
+                case 'bank':
+                    methodName = 'Virement Bancaire';
+                    break;
+            }
+            document.getElementById('method').textContent = methodName;
+        }
+
+        window.addEventListener('DOMContentLoaded', loadConfirmationData);
+    </script>
+</body>
+</html>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions de Paiement - Eureka.Px</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563EB;
+            --bright-blue: #3B82F6;
+            --dark-blue: #1E40AF;
+            --secondary-orange: #EA580C;
+            --bright-orange: #F97316;
+            --copper: #C2410C;
+            --dark-bg: #0A0E1A;
+            --darker-bg: #050A14;
+            --card-bg: rgba(37, 99, 235, 0.1);
+            --light-text: #FFFFFF;
+            --gray-text: #94A3B8;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0E1A;
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .page-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: var(--dark-bg);
+            border-radius: 32px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 10, 31, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .main-content {
+            padding: 4rem 3rem;
+        }
+
+        .status-header {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(234, 88, 12, 0.1);
+            border: 2px solid var(--secondary-orange);
+            border-radius: 24px;
+            margin-bottom: 3rem;
+        }
+
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-header h1 {
+            font-size: 2.5rem;
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .status-text {
+            color: var(--secondary-orange);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--light-text);
+        }
+
+        .info-card {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+        }
+
+        .payment-details {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--gray-text);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: var(--light-text);
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .copy-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: var(--secondary-orange);
+        }
+
+        .copy-btn.copied {
+            background: var(--success-green);
+        }
+
+        .reference-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+            border: 2px solid var(--secondary-orange);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .reference-label {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .reference-code {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary-orange);
+            letter-spacing: 0.05em;
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        .instructions-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .instructions-list li {
+            counter-increment: step-counter;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--primary-blue);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .instructions-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-blue);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .instructions-list li strong {
+            color: var(--light-text);
+        }
+
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 2px solid var(--warning-yellow);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box strong {
+            color: var(--warning-yellow);
+        }
+
+        .schedule-preview {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .schedule-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-date {
+            color: var(--gray-text);
+        }
+
+        .schedule-amount {
+            color: var(--light-text);
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .action-btn {
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(37, 99, 235, 0.1);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            color: var(--light-text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+            }
+
+            .main-content {
+                padding: 3rem 1.5rem;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+
+            .reference-code {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <nav>
+            <div class="logo">
+                <img src="favicon.svg" alt="Eureka.Px Logo" class="logo-icon">
+                <span>Eureka.Px</span>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <div class="status-header">
+                <div class="status-icon">📋</div>
+                <h1>FACTURE PRO FORMA</h1>
+                <p class="status-text">En attente de vérification</p>
+            </div>
+
+            <p class="greeting">Bonjour <strong id="clientName">Client</strong>,</p>
+
+            <div class="info-card">
+                <h3 class="card-title">Instructions de paiement</h3>
+                
+                <div class="payment-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Montant à payer maintenant</span>
+                        <span class="detail-value" id="amountToPay">200 USD</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Méthode de paiement</span>
+                        <span class="detail-value" id="paymentMethod">Airtel Money</span>
+                    </div>
+                    <div class="detail-row" id="phoneNumberRow">
+                        <span class="detail-label">Numéro</span>
+                        <span class="detail-value">
+                            <span id="phoneNumber">+243 997264738</span>
+                            <button class="copy-btn" onclick="copyToClipboard('phoneNumber', this)">Copier</button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="reference-box">
+                    <div class="reference-label">Référence à mentionner</div>
+                    <div class="reference-code" id="referenceCode">EUREKA-PX-XXX</div>
+                    <button class="copy-btn" style="margin-top: 1rem;" onclick="copyToClipboard('referenceCode', this)">Copier la référence</button>
+                </div>
+
+                <div class="instructions-list" id="instructionsList">
+                    <!-- Les instructions seront générées dynamiquement -->
+                </div>
+
+                <div class="warning-box">
+                    <strong>Important:</strong> Une fois le paiement effectué, une facture et un reçu vous seront envoyés automatiquement par email à <strong id="clientEmail">votre@email.com</strong>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3 class="card-title">Calendrier de paiement</h3>
+                <div class="schedule-preview" id="schedulePreview">
+                    <!-- Le calendrier sera généré dynamiquement -->
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn btn-primary" onclick="confirmPayment()">
+                    J'ai effectué le paiement
+                </button>
+                <button class="action-btn btn-secondary" onclick="window.print()">
+                    Imprimer les instructions
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let orderData = {};
+        let referenceCode = '';
+
+        function generateReference() {
+            const timestamp = Date.now();
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `EUREKA-PX-${timestamp.toString().slice(-6)}${random}`;
+        }
+
+        function loadOrderData() {
+            const storedData = localStorage.getItem('orderData');
+            if (!storedData) {
+                window.location.href = 'payment.html';
+                return;
+            }
+
+            orderData = JSON.parse(storedData);
+            referenceCode = generateReference();
+
+            // Stocker la référence pour utilisation ultérieure
+            orderData.reference = referenceCode;
+            localStorage.setItem('orderData', JSON.stringify(orderData));
+
+            displayOrderInfo();
+        }
+
+        function displayOrderInfo() {
+            const rate = 2350;
+            const { firstName, lastName, email, paymentPlan, paymentMethod, currency } = orderData;
+
+            // Nom du client
+            document.getElementById('clientName').textContent = `${firstName} ${lastName}`;
+            document.getElementById('clientEmail').textContent = email;
+
+            // Référence
+            document.getElementById('referenceCode').textContent = referenceCode;
+
+            // Montant
+            const firstAmount = 200;
+            const displayAmount = currency === 'usd' 
+                ? `${firstAmount} USD` 
+                : `${(firstAmount * rate).toLocaleString()} FC`;
+            document.getElementById('amountToPay').textContent = displayAmount;
+
+            // Méthode de paiement
+            let methodName = '';
+            let phoneNumber = '+243 997264738';
+            
+            switch(paymentMethod) {
+                case 'airtel':
+                    methodName = 'Airtel Money';
+                    break;
+                case 'orange':
+                    methodName = 'Orange Money';
+                    break;
+                case 'bank':
+                    methodName = 'Virement Bancaire';
+                    document.getElementById('phoneNumberRow').style.display = 'none';
+                    break;
+            }
+            
+            document.getElementById('paymentMethod').textContent = methodName;
+            document.getElementById('phoneNumber').textContent = phoneNumber;
+
+            // Instructions
+            generateInstructions(paymentMethod, phoneNumber, displayAmount);
+
+            // Calendrier
+            generateSchedule(paymentPlan, currency, rate);
+        }
+
+        function generateInstructions(method, phone, amount) {
+            const container = document.getElementById('instructionsList');
+            let instructions = [];
+
+            if (method === 'airtel' || method === 'orange') {
+                const methodName = method === 'airtel' ? 'Airtel Money' : 'Orange Money';
+                instructions = [
+                    `Ouvrez votre application <strong>${methodName}</strong>`,
+                    `Sélectionnez <strong>Envoyer de l'argent</strong>`,
+                    `Entrez le numéro: <strong>${phone}</strong>`,
+                    `Montant: <strong>${amount}</strong>`,
+                    `Dans le champ motif/référence, entrez: <strong>${referenceCode}</strong>`,
+                    `Validez le paiement et conservez le SMS de confirmation`,
+                    `Cliquez sur "J'ai effectué le paiement" ci-dessous`
+                ];
+            } else {
+                instructions = [
+                    `Connectez-vous à votre banque en ligne`,
+                    `Sélectionnez <strong>Virement international</strong>`,
+                    `Informations bancaires vous seront envoyées par email`,
+                    `Référence obligatoire: <strong>${referenceCode}</strong>`,
+                    `Effectuez le virement de <strong>${amount}</strong>`,
+                    `Conservez la preuve de virement`,
+                    `Cliquez sur "J'ai effectué le paiement" ci-dessous`
+                ];
+            }
+
+            container.innerHTML = instructions.map(inst => `<li>${inst}</li>`).join('');
+        }
+
+        function generateSchedule(plan, currency, rate) {
+            const container = document.getElementById('schedulePreview');
+            let scheduleHTML = '<div class="schedule-title">Vos prochains paiements</div>';
+
+            if (plan === '4weeks') {
+                const payments = [
+                    { date: 'Aujourd\'hui', amount: 200, status: 'pending' },
+                    { date: 'Jour 14 (dans 2 semaines)', amount: 200, status: 'future' },
+                    { date: 'Jour 28 - Livraison (dans 4 semaines)', amount: 200, status: 'future' }
+                ];
+
+                payments.forEach(payment => {
+                    const displayAmount = currency === 'usd' 
+                        ? `${payment.amount} USD` 
+                        : `${(payment.amount * rate).toLocaleString()} FC`;
+                    
+                    const statusColor = payment.status === 'pending' ? 'var(--warning-yellow)' : 'var(--light-text)';
+                    
+                    scheduleHTML += `
+                        <div class="schedule-item">
+                            <span class="schedule-date" style="color: ${statusColor}">${payment.date}</span>
+                            <span class="schedule-amount">${displayAmount}</span>
+                        </div>
+                    `;
+                });
+            } else {
+                const payments = [
+                    { date: 'Aujourd\'hui', amount: 200, status: 'pending' },
+                    { date: 'Mois 1 (dans 30 jours)', amount: 0, status: 'free' },
+                    { date: 'Fin Mois 2 (dans 60 jours)', amount: 235, status: 'future' },
+                    { date: 'Fin Mois 3 (dans 90 jours)', amount: 235, status: 'future' }
+                ];
+
+                payments.forEach(payment => {
+                    let displayAmount;
+                    let statusColor = 'var(--light-text)';
+                    
+                    if (payment.status === 'pending') {
+                        statusColor = 'var(--warning-yellow)';
+                        displayAmount = currency === 'usd' 
+                            ? `${payment.amount} USD` 
+                            : `${(payment.amount * rate).toLocaleString()} FC`;
+                    } else if (payment.status === 'free') {
+                        displayAmount = 'GRATUIT';
+                        statusColor = 'var(--success-green)';
+                    } else {
+                        displayAmount = currency === 'usd' 
+                            ? `${payment.amount} USD` 
+                            : `${(payment.amount * rate).toLocaleString()} FC`;
+                    }
+                    
+                    scheduleHTML += `
+                        <div class="schedule-item">
+                            <span class="schedule-date">${payment.date}</span>
+                            <span class="schedule-amount" style="color: ${statusColor}">${displayAmount}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            container.innerHTML = scheduleHTML;
+        }
+
+        function copyToClipboard(elementId, button) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copié!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = 'Copier';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        async function confirmPayment() {
+            const confirmed = confirm('Confirmez-vous avoir effectué le paiement?\n\nVous recevrez un email de confirmation une fois le paiement vérifié.');
+            
+            if (confirmed) {
+                try {
+                    // Préparer les données pour l'envoi
+                    const paymentData = {
+                        ...orderData,
+                        reference: referenceCode,
+                        paymentDate: new Date().toISOString(),
+                        status: 'pending_verification'
+                    };
+
+                    // Envoyer au backend (fonction à implémenter)
+                    await sendToBackend(paymentData);
+                    
+                    // Rediriger vers la page de confirmation
+                    window.location.href = 'payment-confirmation.html';
+                } catch (error) {
+                    alert('Une erreur est survenue. Veuillez réessayer ou nous contacter.');
+                }
+            }
+        }
+
+        async function sendToBackend(data) {
+            // Cette fonction sera implémentée avec votre backend
+            // Pour l'instant, on stocke dans localStorage
+            localStorage.setItem('paymentConfirmed', JSON.stringify(data));
+            
+            // TODO: Implémenter l'appel API réel
+            // const response = await fetch('/api/payment', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // });
+            // return response.json();
+            
+            return Promise.resolve({ success: true });
+        }
+
+        // Charger les données au chargement de la page
+        window.addEventListener('DOMContentLoaded', loadOrderData);
+    </script>
+</body>
+</html>

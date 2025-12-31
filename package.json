@@ -1,0 +1,21 @@
+{
+  "name": "eureka-px-website",
+  "version": "1.0.0",
+  "description": "Site vitrine Eureka.Px avec système de paiement intégré",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel",
+    "deploy:prod": "vercel --prod"
+  },
+  "keywords": [
+    "AI",
+    "IA",
+    "automation",
+    "custom-tools",
+    "business-solutions",
+    "payment-system"
+  ],
+  "author": "Eureka.Px",
+  "license": "UNLICENSED"
+}

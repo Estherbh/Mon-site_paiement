@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finaliser votre commande - Eureka.Px</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563EB;
+            --bright-blue: #3B82F6;
+            --dark-blue: #1E40AF;
+            --secondary-orange: #EA580C;
+            --bright-orange: #F97316;
+            --copper: #C2410C;
+            --dark-bg: #0A0E1A;
+            --darker-bg: #050A14;
+            --card-bg: rgba(37, 99, 235, 0.1);
+            --light-text: #FFFFFF;
+            --gray-text: #94A3B8;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0E1A;
+            color: var(--light-text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .page-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            background: var(--dark-bg);
+            border-radius: 32px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 10, 31, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .back-btn {
+            color: var(--gray-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            color: var(--bright-orange);
+        }
+
+        .main-content {
+            padding: 4rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+        }
+
+        .payment-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .payment-form {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-text);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gray-text);
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 12px;
+            color: var(--light-text);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-text);
+        }
+
+        .plan-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .plan-option {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .plan-option:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .plan-option.selected {
+            border-color: var(--secondary-orange);
+            background: rgba(234, 88, 12, 0.1);
+        }
+
+        .plan-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .plan-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--light-text);
+        }
+
+        .plan-price {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--secondary-orange);
+        }
+
+        .plan-description {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .payment-method {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            position: relative;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .payment-method.selected {
+            border-color: var(--secondary-orange);
+            background: rgba(234, 88, 12, 0.1);
+        }
+
+        .payment-method input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .method-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .method-name {
+            font-weight: 600;
+            color: var(--light-text);
+            margin-bottom: 0.3rem;
+        }
+
+        .method-description {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+        }
+
+        .currency-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .currency-option {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .currency-option:hover {
+            border-color: var(--primary-blue);
+        }
+
+        .currency-option.selected {
+            border-color: var(--secondary-orange);
+            background: rgba(234, 88, 12, 0.1);
+        }
+
+        .currency-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary-blue);
+            color: var(--light-text);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .order-summary {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 24px;
+            padding: 2.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .summary-header {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.3);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.8rem 0;
+        }
+
+        .summary-label {
+            color: var(--gray-text);
+        }
+
+        .summary-value {
+            color: var(--light-text);
+            font-weight: 600;
+        }
+
+        .summary-total {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(37, 99, 235, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary-orange);
+        }
+
+        .payment-schedule {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .schedule-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-date {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+        }
+
+        .schedule-amount {
+            color: var(--light-text);
+            font-weight: 600;
+        }
+
+        .guarantee-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .guarantee-badge strong {
+            color: var(--success-green);
+        }
+
+        @media (max-width: 1024px) {
+            .payment-container {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+            }
+
+            .main-content {
+                padding: 3rem 1.5rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .payment-form,
+            .order-summary {
+                padding: 2rem;
+            }
+
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <nav>
+            <div class="logo">
+                <img src="favicon.svg" alt="Eureka.Px Logo" class="logo-icon">
+                <span>Eureka.Px</span>
+            </div>
+            <a href="index.html" class="back-btn">
+                <span>←</span>
+                Retour
+            </a>
+        </nav>
+
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Finaliser votre commande</h1>
+                <p>Complétez les informations ci-dessous pour démarrer votre projet</p>
+            </div>
+
+            <div class="payment-container">
+                <div class="payment-form">
+                    <form id="paymentForm">
+                        <!-- Informations Client -->
+                        <div class="form-section">
+                            <h3>Vos informations</h3>
+                            <div class="form-group">
+                                <label for="firstName">Prénom</label>
+                                <input type="text" id="firstName" class="form-input" placeholder="Jean" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Nom</label>
+                                <input type="text" id="lastName" class="form-input" placeholder="Dupont" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-input" placeholder="jean.dupont@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Téléphone</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="+243 XXX XXX XXX" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">Entreprise (optionnel)</label>
+                                <input type="text" id="company" class="form-input" placeholder="Nom de votre entreprise">
+                            </div>
+                        </div>
+
+                        <!-- Plan de Paiement -->
+                        <div class="form-section">
+                            <h3>Choisissez votre plan de paiement</h3>
+                            <div class="plan-options">
+                                <label class="plan-option" for="plan-4weeks">
+                                    <input type="radio" name="paymentPlan" id="plan-4weeks" value="4weeks" checked>
+                                    <div class="plan-header">
+                                        <span class="plan-name">3 paiements sur 4 semaines</span>
+                                        <span class="plan-price">200 USD × 3</span>
+                                    </div>
+                                    <p class="plan-description">
+                                        Paiement échelonné pendant le développement. Jour 0, Jour 14, Jour 28 (livraison)
+                                    </p>
+                                </label>
+
+                                <label class="plan-option" for="plan-3months">
+                                    <input type="radio" name="paymentPlan" id="plan-3months" value="3months">
+                                    <div class="plan-header">
+                                        <span class="plan-name">3 paiements sur 3 mois</span>
+                                        <span class="plan-price">200 + 235 + 235 USD</span>
+                                    </div>
+                                    <p class="plan-description">
+                                        200 USD aujourd'hui, mois 1 gratuit, puis 235 USD fin mois 2 et 3 (avec hébergement)
+                                    </p>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Méthode de Paiement -->
+                        <div class="form-section">
+                            <h3>Méthode de paiement</h3>
+                            <div class="payment-methods">
+                                <label class="payment-method" for="method-airtel">
+                                    <input type="radio" name="paymentMethod" id="method-airtel" value="airtel" checked>
+                                    <div class="method-icon">📱</div>
+                                    <div class="method-name">Airtel Money</div>
+                                    <div class="method-description">+243 997264738</div>
+                                </label>
+
+                                <label class="payment-method" for="method-orange">
+                                    <input type="radio" name="paymentMethod" id="method-orange" value="orange">
+                                    <div class="method-icon">📱</div>
+                                    <div class="method-name">Orange Money</div>
+                                    <div class="method-description">+243 997264738</div>
+                                </label>
+
+                                <label class="payment-method" for="method-bank">
+                                    <input type="radio" name="paymentMethod" id="method-bank" value="bank">
+                                    <div class="method-icon">🏦</div>
+                                    <div class="method-name">Virement Bancaire</div>
+                                    <div class="method-description">International</div>
+                                </label>
+                            </div>
+
+                            <!-- Sélection Devise (Mobile Money uniquement) -->
+                            <div id="currencySelector" class="currency-selector" style="margin-top: 1.5rem;">
+                                <label class="currency-option" for="currency-usd">
+                                    <input type="radio" name="currency" id="currency-usd" value="usd" checked>
+                                    <div style="font-weight: 600; color: var(--light-text);">USD</div>
+                                    <div style="font-size: 0.85rem; color: var(--gray-text);">Dollars</div>
+                                </label>
+
+                                <label class="currency-option" for="currency-cdf">
+                                    <input type="radio" name="currency" id="currency-cdf" value="cdf">
+                                    <div style="font-weight: 600; color: var(--light-text);">CDF</div>
+                                    <div style="font-size: 0.85rem; color: var(--gray-text);">1 USD = 2350 FC</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Continuer vers les instructions de paiement
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Résumé de commande -->
+                <div class="order-summary">
+                    <h3 class="summary-header">Résumé de commande</h3>
+                    
+                    <div class="summary-item">
+                        <span class="summary-label">Service</span>
+                        <span class="summary-value">Développement</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span class="summary-label">Plan</span>
+                        <span class="summary-value" id="summaryPlan">3x sur 4 semaines</span>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <span class="summary-label">Premier paiement</span>
+                        <span class="summary-value" id="summaryFirstPayment">200 USD</span>
+                    </div>
+
+                    <div class="summary-total">
+                        <span class="total-label">Total</span>
+                        <span class="total-amount" id="summaryTotal">600 USD</span>
+                    </div>
+
+                    <!-- Calendrier de paiement -->
+                    <div class="payment-schedule">
+                        <div class="schedule-title">Calendrier de paiement</div>
+                        <div id="scheduleContainer">
+                            <div class="schedule-item">
+                                <span class="schedule-date">Aujourd'hui</span>
+                                <span class="schedule-amount">200 USD</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span class="schedule-date">Jour 14</span>
+                                <span class="schedule-amount">200 USD</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span class="schedule-date">Jour 28 (Livraison)</span>
+                                <span class="schedule-amount">200 USD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guarantee-badge">
+                        <strong>Garantie 30 jours</strong><br>
+                        <span style="color: var(--gray-text); font-size: 0.9rem;">Satisfait ou remboursé</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion de la sélection des options
+        document.querySelectorAll('.plan-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.plan-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                updateSummary();
+            });
+        });
+
+        document.querySelectorAll('.payment-method').forEach(method => {
+            method.addEventListener('click', function() {
+                document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                const selectedMethod = this.querySelector('input').value;
+                const currencySelector = document.getElementById('currencySelector');
+                
+                if (selectedMethod === 'bank') {
+                    currencySelector.classList.add('hidden');
+                } else {
+                    currencySelector.classList.remove('hidden');
+                }
+            });
+        });
+
+        document.querySelectorAll('.currency-option').forEach(currency => {
+            currency.addEventListener('click', function() {
+                document.querySelectorAll('.currency-option').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                updateSummary();
+            });
+        });
+
+        function updateSummary() {
+            const plan = document.querySelector('input[name="paymentPlan"]:checked').value;
+            const currency = document.querySelector('input[name="currency"]:checked').value;
+            const rate = 2350;
+
+            let planText, firstPayment, total, schedule;
+
+            if (plan === '4weeks') {
+                planText = '3x sur 4 semaines';
+                firstPayment = currency === 'usd' ? '200 USD' : `${(200 * rate).toLocaleString()} FC`;
+                total = currency === 'usd' ? '600 USD' : `${(600 * rate).toLocaleString()} FC`;
+                
+                schedule = `
+                    <div class="schedule-item">
+                        <span class="schedule-date">Aujourd'hui</span>
+                        <span class="schedule-amount">${currency === 'usd' ? '200 USD' : `${(200 * rate).toLocaleString()} FC`}</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-date">Jour 14</span>
+                        <span class="schedule-amount">${currency === 'usd' ? '200 USD' : `${(200 * rate).toLocaleString()} FC`}</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-date">Jour 28 (Livraison)</span>
+                        <span class="schedule-amount">${currency === 'usd' ? '200 USD' : `${(200 * rate).toLocaleString()} FC`}</span>
+                    </div>
+                `;
+            } else {
+                planText = '3x sur 3 mois';
+                firstPayment = currency === 'usd' ? '200 USD' : `${(200 * rate).toLocaleString()} FC`;
+                total = currency === 'usd' ? '670 USD' : `${(670 * rate).toLocaleString()} FC`;
+                
+                schedule = `
+                    <div class="schedule-item">
+                        <span class="schedule-date">Aujourd'hui</span>
+                        <span class="schedule-amount">${currency === 'usd' ? '200 USD' : `${(200 * rate).toLocaleString()} FC`}</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-date">Mois 1</span>
+                        <span class="schedule-amount" style="color: var(--success-green);">GRATUIT</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-date">Fin Mois 2</span>
+                        <span class="schedule-amount">${currency === 'usd' ? '235 USD' : `${(235 * rate).toLocaleString()} FC`}</span>
+                    </div>
+                    <div class="schedule-item">
+                        <span class="schedule-date">Fin Mois 3</span>
+                        <span class="schedule-amount">${currency === 'usd' ? '235 USD' : `${(235 * rate).toLocaleString()} FC`}</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById('summaryPlan').textContent = planText;
+            document.getElementById('summaryFirstPayment').textContent = firstPayment;
+            document.getElementById('summaryTotal').textContent = total;
+            document.getElementById('scheduleContainer').innerHTML = schedule;
+        }
+
+        // Soumission du formulaire
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company: document.getElementById('company').value,
+                paymentPlan: document.querySelector('input[name="paymentPlan"]:checked').value,
+                paymentMethod: document.querySelector('input[name="paymentMethod"]:checked').value,
+                currency: document.querySelector('input[name="currency"]:checked').value
+            };
+
+            // Stocker les données dans localStorage pour la page suivante
+            localStorage.setItem('orderData', JSON.stringify(formData));
+            
+            // Rediriger vers la page d'instructions de paiement
+            window.location.href = 'payment-instructions.html';
+        });
+
+        // Initialiser la sélection par défaut
+        document.querySelector('.plan-option').classList.add('selected');
+        document.querySelector('.payment-method').classList.add('selected');
+        document.querySelector('.currency-option').classList.add('selected');
+    </script>
+</body>
+</html>
