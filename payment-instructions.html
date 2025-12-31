@@ -404,7 +404,7 @@
                 </div>
 
                 <div class="warning-box">
-                    <strong>Important:</strong> Une fois le paiement effectué, une facture et un reçu vous seront envoyés automatiquement par email à <strong id="clientEmail">votre@email.com</strong>
+                    <strong>Important:</strong> Une fois le paiement effectué, une facture et un reçu vous seront envoyés automatiquement par email à <strong id="clientEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="90e6ffe4e2f5d0f5fdf1f9fcbef3fffd">[email&#160;protected]</a></strong>
                 </div>
             </div>
 
@@ -426,7 +426,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         let orderData = {};
         let referenceCode = '';
 
@@ -473,14 +473,16 @@
 
             // Méthode de paiement
             let methodName = '';
-            let phoneNumber = '+243 997264738';
+            let phoneNumber = '';
             
             switch(paymentMethod) {
                 case 'airtel':
                     methodName = 'Airtel Money';
+                    phoneNumber = '+243 997264738';
                     break;
                 case 'orange':
                     methodName = 'Orange Money';
+                    phoneNumber = '+243 851887704';
                     break;
                 case 'bank':
                     methodName = 'Virement Bancaire';
@@ -653,12 +655,4 @@
                 console.error('Erreur envoi backend:', error);
                 // Stocker en local si l'envoi échoue
                 localStorage.setItem('paymentConfirmed', JSON.stringify(data));
-                return { success: true }; // Continue quand même vers la confirmation
-            }
-        }
-
-        // Charger les données au chargement de la page
-        window.addEventListener('DOMContentLoaded', loadOrderData);
-    </script>
-</body>
-</html>
+                return { success: true };
