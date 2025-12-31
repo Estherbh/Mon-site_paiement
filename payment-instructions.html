@@ -439,9 +439,38 @@
         let referenceCode = '';
 
         function generateReference() {
-            const timestamp = Date.now();
-            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-            return `EUREKA-PX-${timestamp.toString().slice(-6)}${random}`;
+            // Format: EPX + SS + DD + MM + YYY + HHMM
+            // Exemple: EPX0031120251100 (00 secondes, 31 déc, 2025, 11h00)
+            
+            const now = new Date();
+            
+            // Secondes: SS (00-59)
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            // Jour: DD (01-31)
+            const day = now.getDate().toString().padStart(2, '0');
+            
+            // Mois: MM (01-12)
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            
+            // Année: YYY (2025 → 025)
+            const year = now.getFullYear().toString().slice(-3);
+            
+            // Heure et Minutes: HHMM (0000-2359)
+            const hour = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const time = `${hour}${minutes}`;
+            
+            // Assembler: EPX + SS + DD + MM + YYY + HHMM
+            return `EPX${seconds}${day}${month}${year}${time}`;
+        }
+
+        function addClientInitials(reference, firstName, lastName) {
+            // Prendre première lettre du prénom et du nom
+            const firstInitial = firstName.charAt(0).toUpperCase();
+            const lastInitial = lastName.charAt(0).toUpperCase();
+            
+            return `${reference}${firstInitial}${lastInitial}`;
         }
 
         function loadOrderData() {
@@ -452,7 +481,12 @@
             }
 
             orderData = JSON.parse(storedData);
-            referenceCode = generateReference();
+            
+            // Générer la référence de base
+            const baseReference = generateReference();
+            
+            // Ajouter les initiales du client
+            referenceCode = addClientInitials(baseReference, orderData.firstName, orderData.lastName);
 
             // Stocker la référence pour utilisation ultérieure
             orderData.reference = referenceCode;
@@ -540,10 +574,6 @@
                     `Numéro de compte: <strong>3013025706037</strong>`,
                     `Montant: <strong>${amount}</strong>`,
                     `Référence OBLIGATOIRE: <strong>${referenceCode}</strong>`,
-                    `Conservez la preuve de virement`,
-                    `Cliquez sur "J'ai effectué le paiement" ci-dessous`
-                ];
-                    `Effectuez le virement de <strong>${amount}</strong>`,
                     `Conservez la preuve de virement`,
                     `Cliquez sur "J'ai effectué le paiement" ci-dessous`
                 ];
