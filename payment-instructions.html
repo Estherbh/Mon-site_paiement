@@ -391,6 +391,14 @@
                             <button class="copy-btn" onclick="copyToClipboard('phoneNumber', this)">Copier</button>
                         </span>
                     </div>
+                    <div class="detail-row" id="bankInfoRow" style="display: none;">
+                        <span class="detail-label">Informations bancaires</span>
+                        <span class="detail-value" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                            <div><strong>Banque:</strong> <span id="bankName">FIRSTBANK</span></div>
+                            <div><strong>Compte:</strong> <span id="bankAccount">3013025706037</span></div>
+                            <button class="copy-btn" onclick="copyToClipboard('bankAccount', this)">Copier le compte</button>
+                        </span>
+                    </div>
                 </div>
 
                 <div class="reference-box">
@@ -479,19 +487,28 @@
                 case 'airtel':
                     methodName = 'Airtel Money';
                     phoneNumber = '+243 997264738';
+                    document.getElementById('phoneNumberRow').style.display = 'flex';
+                    document.getElementById('bankInfoRow').style.display = 'none';
                     break;
                 case 'orange':
                     methodName = 'Orange Money';
                     phoneNumber = '+243 851887704';
+                    document.getElementById('phoneNumberRow').style.display = 'flex';
+                    document.getElementById('bankInfoRow').style.display = 'none';
                     break;
                 case 'bank':
                     methodName = 'Virement Bancaire';
                     document.getElementById('phoneNumberRow').style.display = 'none';
+                    document.getElementById('bankInfoRow').style.display = 'flex';
+                    document.getElementById('bankName').textContent = 'FIRSTBANK';
+                    document.getElementById('bankAccount').textContent = '3013025706037';
                     break;
             }
             
             document.getElementById('paymentMethod').textContent = methodName;
-            document.getElementById('phoneNumber').textContent = phoneNumber;
+            if (phoneNumber) {
+                document.getElementById('phoneNumber').textContent = phoneNumber;
+            }
 
             // Instructions
             generateInstructions(paymentMethod, phoneNumber, displayAmount);
@@ -517,10 +534,15 @@
                 ];
             } else {
                 instructions = [
-                    `Connectez-vous à votre banque en ligne`,
-                    `Sélectionnez <strong>Virement international</strong>`,
-                    `Informations bancaires vous seront envoyées par email`,
-                    `Référence obligatoire: <strong>${referenceCode}</strong>`,
+                    `Connectez-vous à votre banque en ligne ou mobile`,
+                    `Sélectionnez <strong>Nouveau virement</strong>`,
+                    `Banque bénéficiaire: <strong>FIRSTBANK</strong>`,
+                    `Numéro de compte: <strong>3013025706037</strong>`,
+                    `Montant: <strong>${amount}</strong>`,
+                    `Référence OBLIGATOIRE: <strong>${referenceCode}</strong>`,
+                    `Conservez la preuve de virement`,
+                    `Cliquez sur "J'ai effectué le paiement" ci-dessous`
+                ];
                     `Effectuez le virement de <strong>${amount}</strong>`,
                     `Conservez la preuve de virement`,
                     `Cliquez sur "J'ai effectué le paiement" ci-dessous`
