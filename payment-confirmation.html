@@ -86,40 +86,37 @@
         }
 
         .success-animation {
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 2rem;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(234, 88, 12, 0.3) 100%);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(234, 88, 12, 0.25) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4.5rem;
-            animation: pulse 2s ease-in-out infinite, rotate 3s linear infinite;
+            font-size: 4rem;
+            animation: pulse 2s ease-in-out infinite, rotateHourglass 4s ease-in-out infinite;
             position: relative;
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
         }
 
         @keyframes pulse {
             0%, 100% {
-                transform: scale(1) rotate(0deg);
                 box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
             }
             50% {
-                transform: scale(1.08) rotate(180deg);
-                box-shadow: 0 0 0 25px rgba(245, 158, 11, 0);
+                box-shadow: 0 0 0 20px rgba(245, 158, 11, 0);
             }
         }
 
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
+        @keyframes rotateHourglass {
+            0%, 40% {
+                transform: rotate(0deg) scale(1);
             }
             50% {
-                transform: rotate(180deg);
+                transform: rotate(180deg) scale(1.08);
             }
-            100% {
-                transform: rotate(360deg);
+            90%, 100% {
+                transform: rotate(180deg) scale(1);
             }
         }
 
@@ -355,7 +352,7 @@
                 <p class="greeting">Bonjour <strong id="clientName">Client</strong>,</p>
 
                 <div class="status-box">
-                    <h3>⏳ EN ATTENTE DE VÉRIFICATION</h3>
+                    <h3>⏳ En attente de vérification</h3>
                     <p>
                         Nous vérifions actuellement votre paiement. Ce processus prend généralement 
                         <strong>quelques minutes à 24 heures</strong> selon votre méthode de paiement.
@@ -416,7 +413,7 @@
         </div>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         function loadConfirmationData() {
             const orderData = JSON.parse(localStorage.getItem('paymentConfirmed') || '{}');
             
@@ -451,4 +448,13 @@
                     methodName = 'Orange Money';
                     break;
                 case 'bank':
-                    methodName = 'Vire
+                    methodName = 'Virement Bancaire';
+                    break;
+            }
+            document.getElementById('method').textContent = methodName;
+        }
+
+        window.addEventListener('DOMContentLoaded', loadConfirmationData);
+    </script>
+</body>
+</html>
